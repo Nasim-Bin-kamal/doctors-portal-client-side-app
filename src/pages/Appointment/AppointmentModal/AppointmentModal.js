@@ -7,6 +7,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import useAuth from '../../../hooks/useAuth';
+import { toast, ToastContainer } from 'react-toastify';
+import './AppointmentModal.css';
+
+
 
 const style = {
     position: 'absolute',
@@ -20,11 +24,21 @@ const style = {
     p: 4,
 };
 
+
+
 function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setSuccessMsg }) {
-    const { name, time } = bookingSlot || {};
+    const { name, time, price } = bookingSlot || {};
     const { user } = useAuth();
     const defaultInfo = { patientName: user.displayName, email: user.email, phone: '' }
     const [bookingInfo, setBookingInfo] = useState(defaultInfo);
+
+
+    const notify = () => {
+        toast('successful', {
+            autoClose: 3000
+        })
+    }
+
 
 
     const handleOnBlur = (e) => {
@@ -38,10 +52,12 @@ function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setS
     }
 
     const handleSubmitAppointment = (e) => {
+
         e.preventDefault();
         const appointment = {
             ...bookingInfo,
             time,
+            price,
             serviceName: name,
             date: date.toLocaleDateString()
         }
@@ -58,17 +74,20 @@ function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setS
             .then(data => {
                 console.log(data);
                 if (data.insertedId) {
-                    setSuccessMsg(true);
+                    // setSuccessMsg(true);
                     handleModalClose();
+                    notify()
+
                 }
             })
 
-        alert('submitting');
+
 
     }
 
     return (
         <div>
+            <ToastContainer />
 
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -89,6 +108,7 @@ function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setS
                         </Typography>
                         <form onSubmit={handleSubmitAppointment}>
                             <TextField
+                                required
                                 disabled
                                 sx={{ width: '100%', mx: 'auto', my: 1 }}
                                 id="outlined-size-small"
@@ -96,6 +116,7 @@ function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setS
                                 size="small"
                             />
                             <TextField
+                                required
                                 onBlur={handleOnBlur}
                                 sx={{ width: '100%', mx: 'auto', my: 1 }}
                                 id="outlined-size-small"
@@ -104,6 +125,7 @@ function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setS
                                 defaultValue={user?.displayName}
                             />
                             <TextField
+                                required
                                 onBlur={handleOnBlur}
                                 sx={{ width: '100%', mx: 'auto', my: 1 }}
                                 id="outlined-size-small"
@@ -112,6 +134,7 @@ function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setS
                                 defaultValue={user?.email}
                             />
                             <TextField
+                                required
                                 onBlur={handleOnBlur}
                                 sx={{ width: '100%', mx: 'auto', my: 1 }}
                                 id="outlined-size-small"
@@ -120,6 +143,7 @@ function AppointmentModal({ bookingSlot, handleModalClose, modalOpen, date, setS
                                 size="small"
                             />
                             <TextField
+                                required
                                 disabled
                                 sx={{ width: '100%', mx: 'auto', my: 1 }}
                                 id="outlined-size-small"

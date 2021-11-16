@@ -11,7 +11,7 @@ const bannerBg = {
     height: '80vh',
     width: '100%',
     backgroundPosition: 'center',
-    backgroundSize: 'contain',
+    backgroundSize: 'cover',
     backgroundAttachment: 'inherit',
     backgroundRepeat: 'no-repeat'
 }

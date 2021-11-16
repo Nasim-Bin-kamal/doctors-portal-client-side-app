@@ -1,6 +1,7 @@
 import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
+import { Fade } from 'react-reveal';
 import people1 from '../../../images/people-1.png';
 import people2 from '../../../images/people-2.png';
 import people3 from '../../../images/people-3.png';
@@ -44,28 +45,31 @@ const Testimonial = () => {
                 <Grid container spacing={4} sx={{ my: 3 }}>
                     {
                         users.map(user => <Grid key={user.id} item xs={12} md={4}>
-                            <Card>
-                                <CardContent>
-                                    <Typography>
-                                        {user.desc}
-                                    </Typography>
-                                    <Grid sx={{ mt: 3, display: 'flex', direction: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
-                                        <Grid>
+                            <Fade duration={2000}>
+                                <Card>
+                                    <CardContent>
+                                        <Typography>
+                                            {user.desc}
+                                        </Typography>
+                                        <Grid sx={{ mt: 3, display: 'flex', direction: 'column', justifyContent: 'space-around', alignItems: 'center' }}>
+                                            <Grid>
 
-                                            <img src={people1} alt="" />
+                                                <img src={people1} alt="" />
+                                            </Grid>
+                                            <Grid>
+                                                <Typography variant="subtitle1" sx={{ color: '#0BBAB8' }}>
+                                                    {user.name}
+                                                </Typography>
+                                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                                                    {user.address}
+                                                </Typography>
+                                            </Grid>
                                         </Grid>
-                                        <Grid>
-                                            <Typography variant="subtitle1" sx={{ color: '#0BBAB8' }}>
-                                                {user.name}
-                                            </Typography>
-                                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                                {user.address}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
 
-                                </CardContent>
-                            </Card>
+                                    </CardContent>
+                                </Card>
+                            </Fade>
+
                         </Grid>)
                     }
                 </Grid>

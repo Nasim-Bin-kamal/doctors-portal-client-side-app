@@ -23,6 +23,7 @@ import AddDoctor from '../AddDoctor/AddDoctor';
 import AdminRoute from '../../LoginPage/AdminRoute/AdminRoute';
 import { Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Payment from '../Payment/Payment';
 
 const drawerWidth = 220;
 
@@ -141,6 +142,9 @@ function DashBoard(props) {
                 <Switch>
                     <Route exact path={path}>
                         <DashboardHome />
+                    </Route>
+                    <Route path={`${path}/payment/:appointmentId`}>
+                        <Payment />
                     </Route>
                     <AdminRoute path={`${path}/addAdmin`}>
                         <AddAdmin />

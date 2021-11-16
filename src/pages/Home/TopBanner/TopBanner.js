@@ -5,6 +5,8 @@ import { Button, Container, Typography } from '@mui/material';
 import bg from '../../../images/bg.png';
 import chair from '../../../images/chair.png';
 
+
+
 const bannerBg = {
     background: `url(${bg})`,
     height: '80vh',

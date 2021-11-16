@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import image from '../../../images/treatment.png'
+import { Fade } from 'react-reveal';
 
 const DentalCareBanner = () => {
     return (
@@ -9,7 +10,9 @@ const DentalCareBanner = () => {
             <Container>
                 <Grid container spacing={2} sx={{ my: 5, display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                     <Grid item xs={12} md={7} sx={{ m: 'auto' }}>
-                        <img style={{ width: '75%' }} src={image} alt="" />
+                        <Fade left>
+                            <img style={{ width: '75%' }} src={image} alt="" />
+                        </Fade>
                     </Grid>
                     <Grid item xs={12} md={5} sx={{ m: 'auto' }}>
                         <Typography variant="h3" sx={{ textTransform: 'capitalize', pb: 3 }}>

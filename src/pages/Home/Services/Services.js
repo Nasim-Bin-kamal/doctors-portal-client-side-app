@@ -7,6 +7,7 @@ import fluoride from '../../../images/fluoride.png';
 import cavity from '../../../images/cavity.png';
 import whitening from '../../../images/whitening.png';
 import Typography from '@mui/material/Typography';
+import Typical from 'react-typical';
 
 const services = [
     {
@@ -34,7 +35,12 @@ const Services = () => {
                     Our Services
                 </Typography>
                 <Typography variant="h3" component="div" sx={{ fontWeight: '500', textAlign: 'center' }}>
-                    Services we provide
+                    Services
+                    <Typical
+                        steps={[' We Provide', 1000, ' With Best', 1000, ' Doctors', 1000]}
+                        loop={Infinity}
+                        wrapper="b"
+                    />
                 </Typography>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {

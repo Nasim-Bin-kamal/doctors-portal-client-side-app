@@ -1,51 +1,62 @@
-import { Grid, Paper, Typography } from '@mui/material';
+import { Button, Container, Input, TextField, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 import React from 'react';
-import RecentAppointments from '../Dashboard/RecentAppointments/RecentAppointments';
-
-const overallStatus = [
-    {
-        currentValue: "09",
-        currentStatus: "Pending Appointments",
-        background: "#f0795b"
-    },
-    {
-        currentValue: "19",
-        currentStatus: "Today's Appointments",
-        background: "#23afeb"
-    },
-    {
-        currentValue: "34",
-        currentStatus: "Total Appointments",
-        background: "#06bd95"
-    },
-    {
-        currentValue: "78",
-        currentStatus: "Total Patients",
-        background: "#edbc09"
-    }
-]
-
+import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AddDoctor = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [image, setImage] = useState(null);
+
+    const successNotify = () => {
+        toast.success('Doctor added successfully');
+    }
+
+
+    const handleSubmitInfo = (e) => {
+        e.preventDefault();
+        if (!image) {
+            return;
+        }
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('image', image);
+
+        fetch('http://localhost:5000/doctors', {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    successNotify();
+                    e.target.reset();
+                }
+            });
+    }
     return (
         <div>
-            <Grid container spacing={2} >
-                {
-                    overallStatus?.map(singleStatus => <Grid item xs={12} md={6} lg={3} sx={{}} >
-                        <Paper sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', height: '100%', background: singleStatus.background }} >
-                            <Typography variant="h3" sx={{ fontWeight: 500, mr: 3 }}>
-                                {singleStatus.currentValue}
-                            </Typography>
-                            <Typography variant="h5">
-                                {singleStatus.currentStatus}
-                            </Typography>
-                        </Paper>
-                    </Grid>)
-                }
-            </Grid>
-            <Grid container spacing={2}>
-                <RecentAppointments />
-            </Grid>
+            <Container>
+                <ToastContainer />
+                <Typography variant="h4" sx={{ textAlign: "center" }}>
+                    Add A doctor
+                </Typography>
+
+                <Box sx={{ width: '450px', mx: 'auto', my: 3 }}>
+                    <form onSubmit={handleSubmitInfo}>
+                        <TextField onBlur={e => setName(e.target.value)} label="Name" variant="standard" fullWidth sx={{ my: 2 }} required />
+                        <TextField onBlur={e => setEmail(e.target.value)} label="Email" variant="standard" fullWidth sx={{ my: 2 }} required />
+                        <Input onBlur={e => setImage(e.target.files[0])} accept="image/*" id="contained-button-file" type="file" fullWidth sx={{ my: 2 }} />
+                        <Button variant="contained" type="submit">
+                            Add Doctor
+                        </Button>
+                    </form>
+                </Box>
+
+            </Container>
+
         </div>
     );
 };

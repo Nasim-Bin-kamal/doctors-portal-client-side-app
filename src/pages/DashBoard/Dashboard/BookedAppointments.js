@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -10,6 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 
 
 
@@ -39,6 +40,7 @@ const BookedAppointments = ({ date }) => {
                             <TableCell>Name</TableCell>
                             <TableCell align="right">Time</TableCell>
                             <TableCell align="right">Service</TableCell>
+                            <TableCell align="right">Payment</TableCell>
 
                         </TableRow>
                     </TableHead>
@@ -53,6 +55,13 @@ const BookedAppointments = ({ date }) => {
                                 </TableCell>
                                 <TableCell align="right">{appointment?.time}</TableCell>
                                 <TableCell align="right">{appointment?.serviceName}</TableCell>
+                                <TableCell align="right">{appointment?.payment ?
+                                    "Paid" :
+                                    <Link to={`dashboard/payment/${appointment?._id}`}>
+                                        <Button>Payment</Button>
+                                    </Link>
+
+                                }</TableCell>
 
 
                             </TableRow>

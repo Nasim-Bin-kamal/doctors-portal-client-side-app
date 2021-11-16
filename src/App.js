@@ -7,6 +7,8 @@ import Register from './pages/LoginPage/Register';
 import AuthProvider from './contexts/AuthProvider';
 import PrivateRoute from './pages/LoginPage/PrivateRoute/PrivateRoute';
 import DashBoard from './pages/DashBoard/Dashboard/DashBoard';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
