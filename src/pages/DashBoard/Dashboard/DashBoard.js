@@ -15,15 +15,11 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
-import DashboardHome from '../DashboardHome/DashboardHome';
-import AddAdmin from '../AddAdmin/AddAdmin';
+import { Link, Outlet } from "react-router-dom";
 import useAuth from '../../../hooks/useAuth';
-import AddDoctor from '../AddDoctor/AddDoctor';
-import AdminRoute from '../../LoginPage/AdminRoute/AdminRoute';
-import { Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Payment from '../Payment/Payment';
+import { Button } from '@mui/material';
+
 
 const drawerWidth = 220;
 
@@ -33,7 +29,6 @@ function DashBoard(props) {
 
     const { admin, signOutUser } = useAuth();
 
-    let { path, url } = useRouteMatch();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -43,12 +38,12 @@ function DashBoard(props) {
             <Toolbar />
             <Divider />
             <Link style={{ display: 'block', margin: '20px' }} to="/appointment">Appointment</Link>
-            <Link style={{ display: 'block', margin: '20px' }} to={`${url}`}>Dashboard</Link>
+            <Link style={{ display: 'block', margin: '20px' }} to="/dashboard">Dashboard</Link>
             {
                 admin &&
                 <Box>
-                    <Link style={{ display: 'block', margin: '20px' }} to={`${url}/addAdmin`}> Add Admin</Link>
-                    <Link style={{ display: 'block', margin: '20px' }} to={`${url}/addDoctor`}>Add Doctor</Link>
+                    <Link style={{ display: 'block', margin: '20px' }} to="/dashboard/addAdmin"> Add Admin</Link>
+                    <Link style={{ display: 'block', margin: '20px' }} to="dashboard/addDoctor">Add Doctor</Link>
                 </Box>
             }
             <List>
@@ -139,20 +134,7 @@ function DashBoard(props) {
             >
                 <Toolbar />
 
-                <Switch>
-                    <Route exact path={path}>
-                        <DashboardHome />
-                    </Route>
-                    <Route path={`${path}/payment/:appointmentId`}>
-                        <Payment />
-                    </Route>
-                    <AdminRoute path={`${path}/addAdmin`}>
-                        <AddAdmin />
-                    </AdminRoute>
-                    <AdminRoute path={`${path}/addDoctor`}>
-                        <AddDoctor />
-                    </AdminRoute>
-                </Switch>
+                <Outlet />
 
 
             </Box>
